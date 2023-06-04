@@ -20,15 +20,18 @@ class Graph:
             newVertex = Vertex(i)
             self.graph_.append(newVertex)
 
-        
+    
+    #Adiciona uma aresta entre dois vértices
     def addEdge(self, source, destiny):
         self.graph_[source].near.append(destiny)
 
 
+    #Printa grafo (usada para testes)
     def printGraph(self):
         for i in range(self.vertexes):
             
             actualEdges = len(self.graph_[i].near)
+            if actualEdges == 0:
+                print(f'{i}')
             for j in range(actualEdges):
                 print(f'{i} -> {self.graph_[i].near[j]}')
-                print()
