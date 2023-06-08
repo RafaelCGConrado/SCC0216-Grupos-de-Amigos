@@ -13,3 +13,8 @@ for i in range(nEdges):
 
 #Printa grafo construído
 graph.printGraph()
+
+
+for i in range(len(graph.graph_)):
+    if graph.graph_[i].color == -1:
+        graph.dfs(i)

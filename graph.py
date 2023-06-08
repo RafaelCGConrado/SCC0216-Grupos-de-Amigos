@@ -35,3 +35,18 @@ class Graph:
                 print(f'{i}')
             for j in range(actualEdges):
                 print(f'{i} -> {self.graph_[i].near[j]}')
+
+
+    def DfsUtil(self, v):
+        self.graph_[v].color = 0  #Pinta o vértice de cinza
+        print(v, end = ' ')
+
+        for neighbour in self.graph_[v].near:
+            if self.graph_[neighbour].color == -1: #Caso o vértice seja branco (não visitado)
+                self.DfsUtil(neighbour)
+
+
+
+
+    def dfs(self, v):
+        self.DfsUtil(v)
