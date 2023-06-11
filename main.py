@@ -12,14 +12,14 @@ for i in range(nEdges):
     graph.addEdge(source, destiny)
 
 #Printa grafo construído
-graph.printGraph()
+# graph.printGraph()
 
 pilha = []
 for i in range(len(graph.graph_)):
     if graph.graph_[i].color == -1:
         graph.DfsTarjan(i, pilha)
 
-for i in range(len(graph.graph_)):
-    v = pilha.pop()
-    print(v.key, end = ' ')
-    print(v.time)
+# for i in range(len(graph.graph_)):
+#     v = pilha.pop()
+#     print(v.key, end = ' ')
+#     print(v.time)
