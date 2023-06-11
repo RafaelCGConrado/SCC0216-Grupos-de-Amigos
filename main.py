@@ -14,12 +14,12 @@ for i in range(nEdges):
 #Printa grafo construído
 graph.printGraph()
 
-#Executa a DFS para todos os vértices ainda não visitados
-# for i in range(len(graph.graph_)):
-#     if graph.graph_[i].color == -1:
-#         graph.Dfs(i)
-
 pilha = []
 for i in range(len(graph.graph_)):
     if graph.graph_[i].color == -1:
-        graph.DfsTarjan(i, pilha, 0)
+        graph.DfsTarjan(i, pilha)
+
+for i in range(len(graph.graph_)):
+    v = pilha.pop()
+    print(v.key, end = ' ')
+    print(v.time)
