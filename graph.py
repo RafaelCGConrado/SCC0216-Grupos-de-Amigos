@@ -67,10 +67,10 @@ class Graph:
             if self.graph_[neighbour].color == -1:
                 self.DfsTarjan(neighbour, stack)
 
-                #teste abaixo
+             
                 self.graph_[v].low = min(self.graph_[v].low, self.graph_[neighbour].low)
 
-            #teste abaixo tambem
+            #Caso o vértice já tenha sido visitado e esteja na pilha
             elif(self.graph_[neighbour].isInStack == True):
                 self.graph_[v].low = min(self.graph_[v].low, self.graph_[neighbour].time)
 
