@@ -13,11 +13,12 @@ class Vertex:
 class Graph:
 
     def __init__(self, nVertex, nEdges):
-        self.vertexes = nVertex
-        self.edges = nEdges
-        self.graph_ = []
-        self.time = 1
-        
+        self.vertexes = nVertex #Número de vértices do grafo
+        self.edges = nEdges  #Número de arestas
+        self.graph_ = []   #Lista de vértices do grafo
+        self.time = 1      #Tempo 'global' do grafo (usado na DFS)
+        self.nCfcs = 0     #Número de componentes fortemente conexos
+        self.Cfcs = []     #Lista com os componentes fortemente conexos
 
         #Inicializa o grafo com seus vértices
         for i in range(self.vertexes):
@@ -40,37 +41,28 @@ class Graph:
             for j in range(actualEdges):
                 print(f'{i} -> {self.graph_[i].near[j]}')
 
-
-    def Dfs(self, v):
-        self.graph_[v].color = 0  #Pinta o vértice de cinza
-        print(v, end = ' ')
-
-        for neighbour in self.graph_[v].near:
-            if self.graph_[neighbour].color == -1: #Caso o vértice seja branco (não visitado)
-                self.Dfs(neighbour)
-
-
-
-    def DfsTarjan(self, v, pilha):
-        self.graph_[v].color = 0  #Pinta o vértice de cinza
+    def DfsTarjan(self, v, stack):
+        #Pinta o vértice de cinza (visitado)
+        self.graph_[v].color = 0 
         
-        #calcular e armazenar seu valor low
+        #Salva o tempo de descoberta
         self.graph_[v].time = self.time
         
-        #testando aqui (low é inicialmente o próprio tempo de desc)
+        #Define o low inicialmente como o tempo de descoberta
         self.graph_[v].low = self.time
-        pilha.append(self.graph_[v])
+
+        #Empilha o vértice na pilha do algoritmo de trajan
         self.graph_[v].isInStack = True
-        #
+        stack.append(self.graph_[v])
         
+        #Aumenta o tempo 'global' do grafo
         self.time += 1
         
-        
-        
-
+        #Para cada vizinho do vértice atual:
         for neighbour in self.graph_[v].near:
-            if self.graph_[neighbour].color == -1: #Caso o vértice seja branco (não visitado)
-                self.DfsTarjan(neighbour, pilha)
+            #Caso o vértice seja branco (não visitado)
+            if self.graph_[neighbour].color == -1:
+                self.DfsTarjan(neighbour, stack)
 
                 #teste abaixo
                 self.graph_[v].low = min(self.graph_[v].low, self.graph_[neighbour].low)
@@ -80,16 +72,40 @@ class Graph:
                 self.graph_[v].low = min(self.graph_[v].low, self.graph_[neighbour].time)
 
 
-        #outro teste
-        w = -1
-        if(self.graph_[v].low == self.graph_[v].time):
-            while(w != v):
-                vertex = pilha.pop()
-                w = vertex.key
-                print(w, end = ' ')
-                self.graph_[w].isInStack = False
-            print()
+        #Algoritmo de Trajan utilizando a pilha:
+        
+        #Lista onde cada componente fortemente conexo será salvo:
+        resultsList = []
+        
+        vertexKey = -1
 
+        #Caso o low do vértice atual seja igual ao seu tempo de descoberta,
+        #podemos dizer que ele é o 'head' de um CFC
+        if(self.graph_[v].low == self.graph_[v].time):
+            while(vertexKey != v):
+                
+                #Desempilha e adiciona na lista do CFS
+                vertex = stack.pop()
+                vertexKey = vertex.key
+                resultsList.append(vertexKey)
+
+                #Altera o status do vértice na pilha
+                self.graph_[vertexKey].isInStack = False
+            
+            #Aumenta o número de componentes fortemente conexos do grafo
+            self.nCfcs += 1
+            resultsList.sort()
+            self.Cfcs.append(resultsList)
+        
+
+    def printCfcs(self):
+        self.Cfcs.sort()
+        
+        for list in self.Cfcs:
+            for key in list:
+                print(key, end = ' ')
+            print()
+    
 
 
     

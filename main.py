@@ -11,15 +11,12 @@ for i in range(nEdges):
     source, destiny = map(int, input().split())
     graph.addEdge(source, destiny)
 
-#Printa grafo construído
-# graph.printGraph()
-
-pilha = []
+#Cria a pilha que será utilizada no algoritmo e chama o DFS
+stack = []
 for i in range(len(graph.graph_)):
     if graph.graph_[i].color == -1:
-        graph.DfsTarjan(i, pilha)
+        graph.DfsTarjan(i, stack)
 
-# for i in range(len(graph.graph_)):
-#     v = pilha.pop()
-#     print(v.key, end = ' ')
-#     print(v.time)
+#Printa resultados
+print(graph.nCfcs)
+graph.printCfcs()
