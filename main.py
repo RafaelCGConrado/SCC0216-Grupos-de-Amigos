@@ -1,3 +1,6 @@
+#Terceiro trabalho da disciplina Modelagem Computacional em Grafos - ICMC USP 2023
+#Aluno: Rafael C. G. Conrado
+
 from graph import Graph, Vertex
 
 #Leitura do número de vértices e de arestas

@@ -1,3 +1,6 @@
+#Terceiro trabalho da disciplina Modelagem Computacional em Grafos - ICMC USP 2023
+#Aluno: Rafael C. G. Conrado
+
 class Vertex:
 
     def __init__(self, key):
